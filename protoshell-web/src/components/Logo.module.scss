@@ -1,9 +1,8 @@
 .logo-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
-
-
 
 $logo-sizes: (
   'xs': 16px,
@@ -16,10 +15,17 @@ $logo-sizes: (
   .size-#{$size} {
     height: map-get($logo-sizes, $size);
     width: map-get($logo-sizes, $size);
-    font-size: map-get($logo-sizes, $size);
+    font-size: calc(map-get($logo-sizes, $size)*3/4);
   }
 
   .logo-text {
-    margin-left: calc(map-get($logo-sizes, $size)/4);
+    display: flex;
+    align-items: center;
+    margin-left: calc(map-get($logo-sizes, $size)/3);
+    font-weight: 500;
+    
+    .primary {
+      color: var(--color-primary-0);
+    }
   }
 }

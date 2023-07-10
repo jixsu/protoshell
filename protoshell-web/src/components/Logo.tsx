@@ -5,6 +5,8 @@ import { memo } from "react";
 import { ReactComponent as ProtoShellLogo } from "@/assets/protoshell.svg";
 import classNames from "classnames/bind";
 import styles from "./Logo.module.scss";
+import { useNavigate } from "react-router-dom";
+import { HOME_ROUTE } from "@/utils/routes";
 
 const cx = classNames.bind(styles);
 
@@ -18,13 +20,18 @@ type LogoProps = {
 
 export const Logo = memo<LogoProps>((props) => {
   const { size = "md" } = props;
+  const navigate = useNavigate();
+
+  const onLogoClick = () => {
+    navigate(HOME_ROUTE);
+  };
 
   return (
-    <div className={cx("logo-container")}>
+    <div className={cx("logo-container")} onClick={onLogoClick}>
       <ProtoShellLogo className={cx({ [`size-${size}`]: size })} />
-      <div className={cx("logo-text")}>
+      <div className={cx("logo-text", { [`size-${size}`]: size })}>
         <label>Proto</label>
-        <label>Shell</label>
+        <label className={cx("primary")}>Shell</label>
       </div>
     </div>
   );

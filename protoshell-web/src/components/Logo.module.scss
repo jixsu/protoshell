@@ -1,0 +1,25 @@
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+
+
+$logo-sizes: (
+  'xs': 16px,
+  'sm': 24px,
+  'md': 32px,
+  'lg': 48px,
+);
+
+@each $size in map-keys($logo-sizes) {
+  .size-#{$size} {
+    height: map-get($logo-sizes, $size);
+    width: map-get($logo-sizes, $size);
+    font-size: map-get($logo-sizes, $size);
+  }
+
+  .logo-text {
+    margin-left: calc(map-get($logo-sizes, $size)/4);
+  }
+}

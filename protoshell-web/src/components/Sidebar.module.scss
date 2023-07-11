@@ -1,0 +1,27 @@
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 25vw;
+  max-width: 200px;
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding: 20px 40px 0px 40px;
+
+  .sidebar-item {
+    background-color: transparent;
+    border: none; 
+    text-align: left;
+    color: var(--color-light-3);
+    transition: background-color 0.25s ease, color 0.25s ease;
+    font-weight: 500;
+    
+    &:hover, &:active, &:focus, &.active {
+      background-color: var(--color-dark-6);
+      border: none;
+      outline: none;
+      color: var(--color-primary-0);
+    }
+  }
+}

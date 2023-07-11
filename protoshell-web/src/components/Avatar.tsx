@@ -9,6 +9,7 @@ type AvatarProps = {
   imgUrl?: string;
 };
 
+// TODO: Add Avator dropdown
 export const Avatar = memo<AvatarProps>((props) => {
   const { name, imgUrl } = props;
 

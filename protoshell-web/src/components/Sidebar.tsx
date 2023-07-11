@@ -14,8 +14,15 @@ export const Sidebar = memo(() => {
     navigate(route);
   };
 
+  console.log(location.pathname);
+  console.log(location.pathname == "/");
+
   return (
-    <div className={cx("sidebar-container")}>
+    <div
+      className={cx("sidebar-container", {
+        active: location.pathname == DASHBOARD_ROUTE,
+      })}
+    >
       <button
         className={cx("sidebar-item")}
         onClick={() => navigateTo(DASHBOARD_ROUTE)}

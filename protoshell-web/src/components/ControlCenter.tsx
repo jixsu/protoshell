@@ -9,7 +9,7 @@ import { getPlatformById } from "@/utils/mockPlatforms";
 const cx = classNames.bind(styles);
 
 export const ControlCenter = memo(() => {
-  // TODO: This should ideally be taken from central state to persist filters
+  // TODO: This should be taken from central state to persist filters
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const sourceTypes = mockSourceTypes;
   const sources = mockSources;

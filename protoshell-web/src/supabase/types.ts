@@ -17,6 +17,7 @@ export interface Database {
           last_name: string;
           created_at: string;
           password: string;
+          email: string;
         };
         Insert: {
           id?: string;
@@ -25,6 +26,7 @@ export interface Database {
           last_name: string;
           created_at: string;
           password: string;
+          email: string;
         };
         Update: {
           id?: string;
@@ -33,6 +35,7 @@ export interface Database {
           last_name: string;
           created_at: string;
           password: string;
+          email: string;
         };
       };
     };

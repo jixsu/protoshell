@@ -5,10 +5,11 @@ import {
   createClient,
 } from "@supabase/supabase-js";
 import { Database } from "./types";
+import { SUPABASE_KEY, SUPABASE_URL } from "@/config.ts/env";
 
 export type SupabaseCreateClient = SupabaseClient<Database>;
 
-export const supabaseClient = (
+const createSupabaseClient = (
   supabaseUrl: string,
   supabaseAnonKey: string,
   accessToken?: string
@@ -35,3 +36,5 @@ export const handlePostgresResponse = <T>(response: PostgrestResponse<T>) => {
 
   return { data, count };
 };
+
+export const supabaseClient = createSupabaseClient(SUPABASE_URL, SUPABASE_KEY);

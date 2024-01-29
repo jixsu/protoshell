@@ -18,6 +18,11 @@ $logo-sizes: (
     font-size: calc(map-get($logo-sizes, $size)*3/4);
   }
 
+  .text-size-#{$size} {
+    height: map-get($logo-sizes, $size);
+    font-size: calc(map-get($logo-sizes, $size)*3/4);
+  }
+
   .logo-text {
     display: flex;
     align-items: center;

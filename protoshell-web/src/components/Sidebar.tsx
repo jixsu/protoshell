@@ -10,10 +10,6 @@ export const Sidebar = memo(() => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const navigateTo = (route: string) => {
-    navigate(route);
-  };
-
   console.log(location.pathname);
   console.log(location.pathname == "/");
 
@@ -23,7 +19,7 @@ export const Sidebar = memo(() => {
         className={cx("sidebar-item", {
           active: location.pathname == DASHBOARD_ROUTE,
         })}
-        onClick={() => navigateTo(DASHBOARD_ROUTE)}
+        onClick={() => navigate(DASHBOARD_ROUTE)}
       >
         Dashboard
       </button>
@@ -31,7 +27,7 @@ export const Sidebar = memo(() => {
         className={cx("sidebar-item", {
           active: location.pathname == `/${CONTROL_CENTER_ROUTE}`,
         })}
-        onClick={() => navigateTo(CONTROL_CENTER_ROUTE)}
+        onClick={() => navigate(`${CONTROL_CENTER_ROUTE}`)}
       >
         Control Center
       </button>

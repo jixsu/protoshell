@@ -14,6 +14,7 @@ type LogoProps = {
   /**
    * Size
    * @default md
+   * @options xs, sm, md, lg
    */
   size?: string;
 };
@@ -29,7 +30,7 @@ export const Logo = memo<LogoProps>((props) => {
   return (
     <div className={cx("logo-container")} onClick={onLogoClick}>
       <ProtoShellLogo className={cx({ [`size-${size}`]: size })} />
-      <div className={cx("logo-text", { [`size-${size}`]: size })}>
+      <div className={cx("logo-text", { [`text-size-${size}`]: size })}>
         <label>Proto</label>
         <label className={cx("primary")}>Shell</label>
       </div>

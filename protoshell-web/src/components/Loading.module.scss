@@ -1,0 +1,70 @@
+@keyframes rotate {
+  from {
+      transform: rotate(0deg);
+  }
+  to { 
+      transform: rotate(360deg);
+  }
+}
+
+
+@-webkit-keyframes rotate {
+  from {
+      -webkit-transform: rotate(0deg);
+  }
+  to { 
+      -webkit-transform: rotate(360deg);
+  }
+}
+
+.load {
+  width: 100px;
+  height: 100px;
+  // margin: 110px auto 0;
+  border-style: solid;
+  border-width: 10px;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+ -webkit-transition: all 0.5s ease-in;
+  -webkit-animation-name:             rotate; 
+  -webkit-animation-duration:         1.0s; 
+  -webkit-animation-iteration-count:  infinite;
+  -webkit-animation-timing-function: linear;
+    
+     transition: all 0.5s ease-in;
+  animation-name:             rotate; 
+  animation-duration:         1.0s; 
+  animation-iteration-count:  infinite;
+  animation-timing-function: linear; 
+}
+
+.color-primary {
+  border-color: var(--color-primary-0);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.color-light {
+  border-color: var(--color-light-0);
+  border-right-color: transparent;
+}
+
+.color-dark {
+  border-color: var(--color-dark-0);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.size-sm {
+  width: 12px;
+  height: 12px;
+  border-width: 2px;
+}
+
+.size-md {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+

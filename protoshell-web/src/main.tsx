@@ -4,8 +4,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "@/routes/_app.tsx";
 import Error from "@/routes/_error.tsx";
 import "./index.css";
-import { CONTROL_CENTER_ROUTE, HOME_ROUTE } from "./utils/routes.ts";
+import {
+  CONTROL_CENTER_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  SIGNUP_ROUTE,
+} from "./utils/routes.ts";
 import { ControlCenter } from "@/components/ControlCenter.tsx";
+import { Login } from "./components/view/Login.tsx";
+import { Signup } from "./components/view/Signup.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +25,16 @@ const router = createBrowserRouter([
         element: <ControlCenter />,
       },
     ],
+  },
+  {
+    path: LOGIN_ROUTE,
+    element: <Login />,
+    errorElement: <Error />,
+  },
+  {
+    path: SIGNUP_ROUTE,
+    element: <Signup />,
+    errorElement: <Error />,
   },
 ]);
 

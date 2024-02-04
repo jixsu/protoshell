@@ -1,30 +1,23 @@
 import classNames from "classnames/bind";
-import { memo, useEffect, useState } from "react";
-import { Logo } from "@/components/Logo";
+import { memo } from "react";
+import { Logo } from "@/components/reusable/Logo";
 import styles from "./Header.module.scss";
-import { Avatar } from "./Avatar";
-import { getUsers } from "@/supabase/users";
+import { Avatar } from "./reusable/Avatar";
+import { useAppSelector } from "@/store/hooks";
 
 const cx = classNames.bind(styles);
 
-// TODO: Change hardcoded username
 export const Header = memo(() => {
-  // TODO: This is just a demo for supabase
-  const [username, setUsername] = useState("");
+  const user = useAppSelector((state) => state.auth.user);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const users = await getUsers();
-      setUsername(users[0].username);
-    };
-
-    void fetchUsers();
-  }, []);
+  if (!user) {
+    return;
+  }
 
   return (
     <div className={cx("header-container")}>
       <Logo />
-      <Avatar name={username} />
+      <Avatar name={user.username} clickable />
     </div>
   );
 });

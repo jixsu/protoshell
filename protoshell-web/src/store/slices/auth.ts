@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@/schema/user";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 export type AuthState = {
   user: User | undefined;
@@ -18,3 +20,13 @@ export const authSlice = createSlice({
     },
   },
 });
+
+const persistConfig = {
+  key: "redux.auth",
+  storage,
+};
+
+export const persistedAuthSlice = persistReducer(
+  persistConfig,
+  authSlice.reducer
+);

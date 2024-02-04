@@ -1,3 +1,4 @@
+import { User } from "@/schema/user";
 import { handlePostgresResponse, supabaseClient } from ".";
 
 export type SignupRequestSchema = {
@@ -13,14 +14,7 @@ export type LoginRequestSchema = {
   password: string;
 };
 
-type UserDBSchema = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  username: string;
-  created_at: string;
-};
+type UserDBSchema = User;
 
 export const login = async (req: LoginRequestSchema) => {
   try {

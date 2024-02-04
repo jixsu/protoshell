@@ -1,11 +1,13 @@
 import { memo, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
-import { Logo } from "@/components/Logo";
+import { Logo } from "@/components/reusable/Logo";
 import { useNavigate } from "react-router-dom";
 import { HOME_ROUTE, SIGNUP_ROUTE } from "@/utils/routes";
 import { login } from "@/supabase/auth";
-import { Loading } from "../Loading";
+import { Loading } from "../reusable/Loading";
+import { dispatch } from "@/store/store";
+import { authSlice } from "@/store/slices/auth";
 
 const cx = classNames.bind(styles);
 
@@ -29,16 +31,20 @@ export const Login = memo(() => {
     navigate(`/${SIGNUP_ROUTE}`);
   };
 
-  const onLogin = async () => {
-    setLoading(true);
-    const users = await login({ email, password });
-    setLoading(false);
+  const onLogin = () => {
+    void (async () => {
+      setLoading(true);
+      const users = await login({ email, password });
+      setLoading(false);
 
-    if (users.length === 1) {
-      navigate(HOME_ROUTE);
-    } else {
-      setLoginError(true);
-    }
+      if (users.length === 1) {
+        const user = users[0];
+        dispatch(authSlice.actions.setUser(user));
+        navigate(HOME_ROUTE);
+      } else {
+        setLoginError(true);
+      }
+    })();
   };
 
   return (

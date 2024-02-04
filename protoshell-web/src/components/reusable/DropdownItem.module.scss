@@ -1,0 +1,34 @@
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+  background: var(--color-dark-4);
+  width: 100%;
+
+  &:active, &:focus {
+    border: none;
+    outline: none;
+  }
+
+  &:active, &:hover, &:focus {
+    background: var(--color-dark-5)
+  }
+}
+
+.justify-start {
+  justify-content: start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.item-label {
+  color: var(--color-light-2);
+  font-size: 14px;
+}

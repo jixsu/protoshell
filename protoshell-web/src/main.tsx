@@ -14,7 +14,8 @@ import { ControlCenter } from "@/components/ControlCenter.tsx";
 import { Login } from "./components/view/Login.tsx";
 import { Signup } from "./components/view/Signup.tsx";
 import { Provider } from "react-redux";
-import { store } from "@/store/store.ts";
+import { persistor, store } from "@/store/store.ts";
+import { PersistGate } from "redux-persist/integration/react";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

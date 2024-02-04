@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { authSlice } from "./slices/auth";
+import { persistedAuthSlice } from "./slices/auth";
+import { persistStore } from "redux-persist";
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice.reducer,
+    auth: persistedAuthSlice,
   },
 });
+
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -38,6 +38,20 @@ export interface Database {
           email: string;
         };
       };
+      accounts: {
+        Row: {
+          id: string;
+          demo: boolean;
+        }
+      };
+      demo: {
+        Row: {
+          id: string;
+          perm: boolean;
+          perm2: boolean;
+          perm3: boolean;
+        }
+      }
     };
     Views: {
       [_ in never]: never;

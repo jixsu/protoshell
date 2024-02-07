@@ -1,7 +1,7 @@
 import { memo } from "react";
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
-import { useLocation, useNavigate } from "react-router-dom";
+import { matchPath, useLocation, useNavigate } from "react-router-dom";
 import { CONTROL_CENTER_ROUTE, DASHBOARD_ROUTE } from "@/utils/routes";
 
 const cx = classNames.bind(styles);
@@ -25,7 +25,7 @@ export const Sidebar = memo(() => {
       </button>
       <button
         className={cx("sidebar-item", {
-          active: location.pathname == `/${CONTROL_CENTER_ROUTE}`,
+          active: matchPath({path: `/${CONTROL_CENTER_ROUTE}`, end: false}, location.pathname)
         })}
         onClick={() => navigate(`${CONTROL_CENTER_ROUTE}`)}
       >

@@ -1,10 +1,11 @@
-import { memo, useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ControlCenter.module.scss";
 import { mockSourceTypes } from "@/utils/mockSourceTypes";
 import { mockSources } from "@/utils/mockSources";
 import { Source } from "@/schema";
 import { getPlatformById } from "@/utils/mockPlatforms";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -13,6 +14,7 @@ export const ControlCenter = memo(() => {
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const sourceTypes = mockSourceTypes;
   const sources = mockSources;
+  const navigate = useNavigate();
 
   const handleFilterToggle = (id: string) => {
     activeFilters.includes(id)
@@ -44,6 +46,11 @@ export const ControlCenter = memo(() => {
       ? `${filteredSources.length} source found`
       : `${filteredSources.length} sources found`;
   }, [filteredSources]);
+
+  const handleCountainerClick = useCallback(() => {
+      console.log("click");
+      navigate("demo");
+  }, []);
 
   return (
     <div className={cx("control-center-container")}>
@@ -81,7 +88,7 @@ export const ControlCenter = memo(() => {
               {sourcesByType.map((s) => {
                 const platform = getPlatformById(s.platformId);
                 return platform ? (
-                  <div className={cx("source-container")}>
+                  <div className={cx("source-container")} onClick={handleCountainerClick}>
                     <label>{platform.label}</label>
                     <label>{sourceType.label}</label>
                     {/* TODO: Complete the source container */}

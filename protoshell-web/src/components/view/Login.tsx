@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
 import { Logo } from "@/components/reusable/Logo";
@@ -31,7 +31,7 @@ export const Login = memo(() => {
     navigate(`/${SIGNUP_ROUTE}`);
   };
 
-  const onLogin = () => {
+  const onLogin = useCallback(() => {
     void (async () => {
       setLoading(true);
       const users = await login({ email, password });
@@ -45,7 +45,7 @@ export const Login = memo(() => {
         setLoginError(true);
       }
     })();
-  };
+  }, [email, navigate, password]);
 
   return (
     <div className={cx("login-view")}>

@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Signup.module.scss";
 import { Logo } from "@/components/reusable/Logo";
@@ -26,7 +26,7 @@ export const Signup = memo(() => {
     navigate(`/${LOGIN_ROUTE}`);
   };
 
-  const onSignup = () => {
+  const onSignup = useCallback(() => {
     void (async () => {
       setLoading(true);
       const users = await signup({
@@ -46,7 +46,7 @@ export const Signup = memo(() => {
         setSignupError(true);
       }
     })();
-  };
+  }, [email, firstName, lastName, navigate, password, username]);
 
   return (
     <div className={cx("signup-view")}>

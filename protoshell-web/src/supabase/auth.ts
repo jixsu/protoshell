@@ -1,5 +1,6 @@
 import { User } from "@/schema/user";
 import { handlePostgresResponse, supabaseClient } from ".";
+import { v4 as uuidv4 } from "uuid";
 
 export type SignupRequestSchema = {
   firstName: string;
@@ -35,8 +36,10 @@ export const login = async (req: LoginRequestSchema) => {
 
 export const signup = async (req: SignupRequestSchema) => {
   const date = new Date();
+  const id = uuidv4();
 
   const formattedReq: UserDBSchema = {
+    id,
     first_name: req.firstName,
     last_name: req.lastName,
     username: req.username,

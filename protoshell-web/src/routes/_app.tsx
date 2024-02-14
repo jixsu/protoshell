@@ -9,11 +9,8 @@ function App() {
   const loggedInUser = useAppSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
-  console.log(loggedInUser);
-
   useEffect(() => {
     if (!loggedInUser) {
-      console.log("renavigating");
       navigate(`/${LOGIN_ROUTE}`);
     }
   }, [loggedInUser, navigate]);

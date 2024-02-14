@@ -10,9 +10,6 @@ export const Sidebar = memo(() => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(location.pathname);
-  console.log(location.pathname == "/");
-
   return (
     <div className={cx("sidebar-container")}>
       <button
@@ -25,7 +22,10 @@ export const Sidebar = memo(() => {
       </button>
       <button
         className={cx("sidebar-item", {
-          active: matchPath({path: `/${CONTROL_CENTER_ROUTE}`, end: false}, location.pathname)
+          active: matchPath(
+            { path: `/${CONTROL_CENTER_ROUTE}`, end: false },
+            location.pathname
+          ),
         })}
         onClick={() => navigate(`${CONTROL_CENTER_ROUTE}`)}
       >

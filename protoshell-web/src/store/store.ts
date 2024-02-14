@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistedAuthSlice } from "./slices/auth";
 import { persistStore } from "redux-persist";
+import { sourcesSlice } from "./slices/sources";
 
 export const store = configureStore({
   reducer: {
     auth: persistedAuthSlice,
+    sources: sourcesSlice.reducer,
   },
 });
 

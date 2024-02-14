@@ -1,20 +1,39 @@
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./ControlCenter.module.scss";
-import { mockSourceTypes } from "@/utils/mockSourceTypes";
-import { mockSources } from "@/utils/mockSources";
 import { Source } from "@/schema";
-import { getPlatformById } from "@/utils/mockPlatforms";
+import { sources, sourceTypes } from "@/utils/sources";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/store/hooks";
+import { dispatch } from "@/store/store";
+import { getUserActiveSourceIds } from "@/supabase/sources";
+import { sourcesSlice } from "@/store/slices/sources";
 
 const cx = classNames.bind(styles);
 
 export const ControlCenter = memo(() => {
   // TODO: This should be taken from central state to persist filters
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
-  const sourceTypes = mockSourceTypes;
-  const sources = mockSources;
   const navigate = useNavigate();
+
+  const user = useAppSelector((state) => state.auth.user);
+  const sourceIds = useAppSelector((state) => state.sources.activeSourceIds);
+
+  useEffect(() => {
+    console.log(sourceIds);
+    console.log(user);
+    void (async () => {
+      if (sourceIds === undefined && user && user.id) {
+        const sourceIds = await getUserActiveSourceIds(user.id);
+        dispatch(sourcesSlice.actions.setSourceIds(sourceIds));
+      }
+    })();
+  }, [sourceIds, user]);
+
+  const activeSources = useMemo(() => {
+    sources.filter((s) => sourceIds?.includes(s.id));
+    return sources;
+  }, [sourceIds]);
 
   const handleFilterToggle = (id: string) => {
     activeFilters.includes(id)
@@ -26,20 +45,20 @@ export const ControlCenter = memo(() => {
 
   const filteredSources = useMemo(() => {
     // if no filters selected, show all
-    if (activeFilters.length === 0) {
-      return sources;
+    if (activeFilters.length === 0 || !activeSources) {
+      return activeSources;
     }
 
     let filteredSources: Source[] = [];
 
     for (const filter of activeFilters) {
       filteredSources = filteredSources.concat(
-        sources.filter((s) => s.typeId === filter)
+        activeSources.filter((s) => s.typeId === filter)
       );
     }
 
     return filteredSources;
-  }, [sources, activeFilters]);
+  }, [activeFilters, activeSources]);
 
   const formatSourcesFoundLabel = useMemo(() => {
     return filteredSources.length === 1
@@ -48,8 +67,8 @@ export const ControlCenter = memo(() => {
   }, [filteredSources]);
 
   const handleCountainerClick = useCallback(() => {
-      console.log("click");
-      navigate("demo");
+    console.log("click");
+    navigate("demo");
   }, []);
 
   return (
@@ -73,7 +92,7 @@ export const ControlCenter = memo(() => {
       <label className={cx("sources-found-label")}>
         {formatSourcesFoundLabel}
       </label>
-      {mockSourceTypes.map((sourceType) => {
+      {sourceTypes.map((sourceType) => {
         const sourcesByType = filteredSources.filter(
           (s) => s.typeId === sourceType.id
         );
@@ -85,16 +104,16 @@ export const ControlCenter = memo(() => {
               {sourceType.label}
             </label>
             <div className={cx("sources-grid")}>
-              {sourcesByType.map((s) => {
-                const platform = getPlatformById(s.platformId);
-                return platform ? (
-                  <div className={cx("source-container")} onClick={handleCountainerClick}>
-                    <label>{platform.label}</label>
-                    <label>{sourceType.label}</label>
-                    {/* TODO: Complete the source container */}
-                  </div>
-                ) : null;
-              })}
+              {sourcesByType.map((s) => (
+                <div
+                  className={cx("source-container")}
+                  onClick={handleCountainerClick}
+                >
+                  <label>{s.label}</label>
+                  <label>{sourceType.label}</label>
+                  {/* TODO: Complete the source container */}
+                </div>
+              ))}
             </div>
           </div>
         ) : null;

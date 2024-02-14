@@ -38,20 +38,20 @@ export interface Database {
           email: string;
         };
       };
-      accounts: {
+      sources: {
         Row: {
-          id: string;
-          demo: boolean;
-        }
+          user_id: string;
+          amazon_demo: boolean;
+        };
+        Insert: {
+          user_id?: string;
+          amazon_demo: boolean;
+        };
+        Update: {
+          user_id?: string;
+          amazon_demo: boolean;
+        };
       };
-      demo: {
-        Row: {
-          id: string;
-          perm: boolean;
-          perm2: boolean;
-          perm3: boolean;
-        }
-      }
     };
     Views: {
       [_ in never]: never;

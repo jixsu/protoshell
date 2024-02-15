@@ -1,18 +1,20 @@
+import { SourceDBName } from "@/schema";
 import { handlePostgresResponse, supabaseClient } from ".";
 
-export const getLocks = async (company: string, username: string) => {
-  const { data: user } = handlePostgresResponse(
-    await supabaseClient.from("users").select("id").eq("username", username)
-  );
-
-  const userId = user[0].id;
-  console.log(userId);
-
+export const getLocks = async (
+  sourceDBName: SourceDBName,
+  userId: string | number
+) => {
   const { data } = handlePostgresResponse(
-    await supabaseClient.from(company.toString()).select("*")
+    await supabaseClient.from(sourceDBName).select().eq("ID", userId)
   );
 
   console.log(data);
 
-  return data;
+  if (data.length) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return data[0];
+  }
+
+  return undefined;
 };

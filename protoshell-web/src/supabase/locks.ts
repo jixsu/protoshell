@@ -9,7 +9,27 @@ export const getLocks = async (
     await supabaseClient.from(sourceDBName).select().eq("ID", userId)
   );
 
-  console.log(data);
+  if (data.length) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return data[0];
+  }
+
+  return undefined;
+};
+
+export const setLock = async (
+  sourceDBName: SourceDBName,
+  userId: string | number,
+  colName: string,
+  newValue: number
+) => {
+  const { data } = handlePostgresResponse(
+    await supabaseClient
+      .from(sourceDBName)
+      .update({ [colName]: newValue })
+      .eq("ID", userId)
+      .select()
+  );
 
   if (data.length) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return

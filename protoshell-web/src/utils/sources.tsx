@@ -10,7 +10,8 @@ export const sources: Source[] = [
     dbName: "amazon_demo",
     name: "Amazon.com, Inc.",
     label: "Amazon",
-    description: "Some random description here",
+    description:
+      "Multinational technology company focused on e-commerce, cloud computing, online advertising, digital streaming and artificial intelligence",
     typeId: "2",
     logo: <AmazonLogo />,
   },

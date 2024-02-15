@@ -102,7 +102,7 @@ export const CompanyPage = memo(() => {
         <div className={cx("rhs")}>
           <label className={cx("header")}>{source?.label}</label>
           <label className={cx("label")}>{sourceType?.label}</label>
-          <label className={cx("label")}>{source?.description}</label>
+          <label className={cx("label-small")}>{source?.description}</label>
         </div>
       </div>
       <label className={cx("lock-info")}>

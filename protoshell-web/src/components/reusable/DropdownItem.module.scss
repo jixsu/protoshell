@@ -3,7 +3,7 @@
   align-items: center;
   border: none;
   outline: none;
-  background: var(--color-dark-4);
+  background: var(--color-dark-5);
   width: 100%;
 
   &:active, &:focus {
@@ -12,7 +12,7 @@
   }
 
   &:active, &:hover, &:focus {
-    background: var(--color-dark-5)
+    background: var(--color-dark-6)
   }
 }
 

@@ -42,14 +42,17 @@ export interface Database {
         Row: {
           user_id: string;
           amazon_demo: boolean;
+          amazon_demo_id: number;
         };
         Insert: {
           user_id?: string;
           amazon_demo: boolean;
+          amazon_demo_id: number;
         };
         Update: {
           user_id?: string;
           amazon_demo: boolean;
+          amazon_demo_id: number;
         };
       };
     };

@@ -40,3 +40,9 @@ export const getSourceTypeByTypeId = (id: string) => {
 export const getSourceIdByDBName = (dbName: SourceDBName) => {
   return sources.find((s) => s.dbName === dbName)?.id;
 };
+
+export const getSourceByDBName = (dbName: SourceDBName) => {
+  return sources.find((s) => s.dbName === dbName);
+};
+
+export const SOURCE_COLUMN_BLACKLIST = ["ID", "updated_at", "created_at"];

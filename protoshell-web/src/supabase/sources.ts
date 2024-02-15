@@ -1,28 +1,26 @@
-import { SourceDBName } from "@/schema";
 import { handlePostgresResponse, supabaseClient } from ".";
 import { getSourceIdByDBName } from "@/utils/sources";
+import { SourceConfig } from "@/store/slices/sources";
 
-export const getUserActiveSourceIds = async (userId: string) => {
+export const getUserSourceConfigs = async (userId: string) => {
   const { data } = handlePostgresResponse(
     await supabaseClient.from("sources").select().eq("user_id", userId)
   );
 
   const userSources = data[0];
 
-  const keyValPairs = Object.entries(userSources);
+  const sourceConfigs: SourceConfig[] = [];
 
-  const activeSourceIds: string[] = [];
-
-  for (const pair of keyValPairs) {
-    const key = pair[0];
-    const value = pair[1];
-    if (value === true) {
-      const sourceId = getSourceIdByDBName(key as SourceDBName);
-      if (sourceId) {
-        activeSourceIds.push(sourceId);
-      }
+  if (userSources.amazon_demo) {
+    const sourceId = getSourceIdByDBName("amazon_demo");
+    if (sourceId) {
+      sourceConfigs.push({
+        name: "amazon_demo",
+        id: sourceId,
+        userId: userSources.amazon_demo_id,
+      });
     }
   }
 
-  return activeSourceIds;
+  return sourceConfigs;
 };

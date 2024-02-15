@@ -6,7 +6,7 @@ import { sources, sourceTypes } from "@/utils/sources";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/store/hooks";
 import { dispatch } from "@/store/store";
-import { getUserActiveSourceIds } from "@/supabase/sources";
+import { getUserSourceConfigs } from "@/supabase/sources";
 import { sourcesSlice } from "@/store/slices/sources";
 
 const cx = classNames.bind(styles);
@@ -17,23 +17,25 @@ export const ControlCenter = memo(() => {
   const navigate = useNavigate();
 
   const user = useAppSelector((state) => state.auth.user);
-  const sourceIds = useAppSelector((state) => state.sources.activeSourceIds);
+  const sourceConfigs = useAppSelector((state) => state.sources.sourceConfigs);
 
   useEffect(() => {
-    console.log(sourceIds);
-    console.log(user);
     void (async () => {
-      if (sourceIds === undefined && user && user.id) {
-        const sourceIds = await getUserActiveSourceIds(user.id);
-        dispatch(sourcesSlice.actions.setSourceIds(sourceIds));
+      if (sourceConfigs === undefined && user && user.id) {
+        const sourceConfigs = await getUserSourceConfigs(user.id);
+        dispatch(sourcesSlice.actions.setSourceConfigs(sourceConfigs));
       }
     })();
-  }, [sourceIds, user]);
+  }, [sourceConfigs, user]);
 
   const activeSources = useMemo(() => {
-    sources.filter((s) => sourceIds?.includes(s.id));
+    if (!sourceConfigs) {
+      return [];
+    }
+    const activeSourceIds = sourceConfigs.map((sc) => sc.id);
+    sources.filter((s) => activeSourceIds?.includes(s.id));
     return sources;
-  }, [sourceIds]);
+  }, [sourceConfigs]);
 
   const handleFilterToggle = (id: string) => {
     activeFilters.includes(id)
@@ -66,10 +68,12 @@ export const ControlCenter = memo(() => {
       : `${filteredSources.length} sources found`;
   }, [filteredSources]);
 
-  const handleCountainerClick = useCallback(() => {
-    console.log("click");
-    navigate("demo");
-  }, []);
+  const handleSourceClick = useCallback(
+    (name: string) => {
+      navigate(name);
+    },
+    [navigate]
+  );
 
   return (
     <div className={cx("control-center-container")}>
@@ -107,7 +111,7 @@ export const ControlCenter = memo(() => {
               {sourcesByType.map((s) => (
                 <div
                   className={cx("source-container")}
-                  onClick={handleCountainerClick}
+                  onClick={() => handleSourceClick(s.dbName)}
                 >
                   <label>{s.label}</label>
                   <label>{sourceType.label}</label>

@@ -28,6 +28,7 @@ export const Avatar = memo<AvatarProps>((props) => {
     return initials;
   }, [name]);
 
+  const avatarRef = useRef<HTMLDivElement>(null);
   const handleAvatarClick = useCallback(() => {
     if (clickable) {
       setShowAvatarDropdown((showAvatarDropdown) => !showAvatarDropdown);
@@ -44,8 +45,10 @@ export const Avatar = memo<AvatarProps>((props) => {
       if (
         showAvatarDropdown &&
         dropdownRef.current &&
+        avatarRef.current &&
         e.target instanceof Node &&
-        !dropdownRef.current.contains(e.target)
+        !dropdownRef.current.contains(e.target) &&
+        !avatarRef.current.contains(e.target)
       ) {
         setShowAvatarDropdown(false);
       }
@@ -63,6 +66,7 @@ export const Avatar = memo<AvatarProps>((props) => {
   return (
     <>
       <div
+        ref={avatarRef}
         className={cx(
           "avatar-container",
           { button: clickable },

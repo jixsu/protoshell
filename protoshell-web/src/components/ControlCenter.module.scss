@@ -70,9 +70,23 @@
         background-color: var(--color-dark-4);
         border: 2px solid transparent;
         transition: border 0.25s ease;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
 
         &:hover {
           border: 2px solid var(--color-dark-5);
+        }
+
+        .header {
+          font-size: 18px;
+          font-weight: 500;
+          padding-top: 16px;
+        }
+
+        .label {
+          font-size: 12px;
+          font-weight: 500;
         }
       }
     }

@@ -35,8 +35,6 @@ export const DropdownItem = memo<DropdownItemProps>((props) => {
     return false;
   }, [item]);
 
-  console.log("itemType", wrapItemInLabel);
-
   return (
     <button
       className={cx("dropdown-item", { [`justify-${justify}`]: justify })}

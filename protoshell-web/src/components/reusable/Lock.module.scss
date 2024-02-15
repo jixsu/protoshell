@@ -1,0 +1,29 @@
+.lock-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.toggle-button {
+  font-size: 12px;
+  width: 60px;
+
+  border: 1px solid transparent;
+  transition: 0;
+
+
+  &:hover {
+    border: 1px solid var(--color-primary-0);
+    outline: 0;
+  }
+
+  &:focus, &:focus-visible, &:active {
+    outline: 0;
+  }
+}

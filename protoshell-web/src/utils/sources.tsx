@@ -1,4 +1,8 @@
 import { Source, SourceDBName, SourceType } from "@/schema";
+// Ignore the ts error below, it is due to vite's client.d.ts shortcoming: https://github.com/vitejs/vite/issues/2269
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { ReactComponent as AmazonLogo } from "@/assets/amazon.svg";
 
 export const sources: Source[] = [
   {
@@ -6,8 +10,10 @@ export const sources: Source[] = [
     dbName: "amazon_demo",
     name: "Amazon.com, Inc.",
     label: "Amazon",
-    description: "Some random description here",
+    description:
+      "Multinational technology company focused on e-commerce, cloud computing, online advertising, digital streaming and artificial intelligence",
     typeId: "2",
+    logo: <AmazonLogo />,
   },
 ];
 

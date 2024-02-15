@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type Source = {
   id: string;
   dbName: SourceDBName;
@@ -5,6 +7,7 @@ export type Source = {
   label: string;
   description: string;
   typeId: string;
+  logo: ReactNode;
   // TODO (tentative): props relating to what it's tracking
 };
 

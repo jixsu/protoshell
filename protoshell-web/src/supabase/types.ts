@@ -55,6 +55,35 @@ export interface Database {
           amazon_demo_id: number;
         };
       };
+      amazon_demo: {
+        Row: {
+          ID: number;
+          NAME: number;
+          AGE: number;
+          ADDRESS: number;
+          SALARY: number;
+          updated_at: string;
+          created_at: string;
+        };
+        Insert: {
+          ID?: number;
+          NAME: number;
+          AGE: number;
+          ADDRESS: number;
+          SALARY: number;
+          updated_at: string;
+          created_at: string;
+        };
+        Update: {
+          ID?: number;
+          NAME: number;
+          AGE: number;
+          ADDRESS: number;
+          SALARY: number;
+          updated_at: string;
+          created_at: string;
+        };
+      };
     };
     Views: {
       [_ in never]: never;

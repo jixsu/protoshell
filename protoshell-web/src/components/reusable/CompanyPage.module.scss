@@ -1,4 +1,74 @@
-.back_button {
+.page-container {
+  background: var(--color-dark-4);
+  padding: 72px 36px 36px 36px;
+  width: 100%;
+  margin-right: 24px;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.lock-container {
+  background: var(--color-dark-5);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.company-info-container {
+  display: flex;
+  padding-bottom: 48px;
+  width: 100%;
+  justify-content: flex-start;
+
+  .lhs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-right: 64px;
+  }
+
+  .rhs {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+}
+
+.header {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.label {
+  font-size: 14px;
+}
+
+.label-small {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-light-3)
+}
+.lock-info {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-grey-0);
+  padding-bottom: 12px;
+}
+
+.lock {
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--color-dark-6)
+  }
+}
+
+.back-button {
+  position: absolute;
+  top: 12px;
+  left: 12px;
   cursor: pointer;
   border: 1px solid transparent;
   transition: 0;

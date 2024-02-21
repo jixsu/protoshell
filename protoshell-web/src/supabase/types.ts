@@ -57,7 +57,7 @@ export interface Database {
       };
       amazon_demo: {
         Row: {
-          ID: number;
+          id: number;
           NAME: number;
           AGE: number;
           ADDRESS: number;
@@ -66,7 +66,7 @@ export interface Database {
           created_at: string;
         };
         Insert: {
-          ID?: number;
+          id?: number;
           NAME: number;
           AGE: number;
           ADDRESS: number;
@@ -75,7 +75,7 @@ export interface Database {
           created_at: string;
         };
         Update: {
-          ID?: number;
+          id?: number;
           NAME: number;
           AGE: number;
           ADDRESS: number;

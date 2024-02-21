@@ -1,18 +1,27 @@
-import { handlePostgresResponse, supabaseClient } from ".";
-import { useAppSelector } from "@/store/hooks";
+import { SourceDBName } from "@/schema";
 
-export const getAccountsFromUser = async () => {
-  //unused rn, no idea if we even need this function/table, but probably useful to display all companies a user is registered with 
-  const user = useAppSelector((state) => state.auth.user);
+export const postLockUpdateToCompany = async (
+  sourceDBName: SourceDBName,
+  locks: Object
+) => {
+  if (sourceDBName == "amazon_demo") {
+    fetch("http://18.222.135.5/api/update-permissions/customers", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key' : 'qLNcGV0LekdvHbT2VaLQ6jHcAO561afnERP4xvOrIULRxlS4jwMVT7YFfGC7FCY7'
 
-  if (!user) {
-    return;
+    },
+    body: JSON.stringify({
+      data: [locks]
+    })
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
   }
-
-  const { data } = handlePostgresResponse(
-    await supabaseClient.from("accounts").select("*, users!inner (id, username)").eq("users.username", user.username)
-  );
-
-  return data;
 };
-

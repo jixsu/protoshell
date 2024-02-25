@@ -6,7 +6,6 @@ export const postLockUpdateToCompany = async (
 ) => {
   try {
     if (sourceDBName == "amazon_demo") {
-      console.log("YUrp");
       const response = await fetch(
         "http://18.222.135.5/api/update-permissions/customers",
         {

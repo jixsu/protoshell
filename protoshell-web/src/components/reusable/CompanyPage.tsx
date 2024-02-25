@@ -22,7 +22,6 @@ export const CompanyPage = memo(() => {
   const [locks, setLocks] = useState<object | undefined>(undefined);
 
   const [pendingLocks, setPendingLocks] = useState<string[]>([]);
-  const [numLocks, setNumLocks] = useState(0);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -54,31 +53,12 @@ export const CompanyPage = memo(() => {
     }
   }, [locks, params.companyName, source, sourceConfig]);
 
-  useEffect(() => {
-    const lastAdded = pendingLocks[pendingLocks.length - 1];
-    if (pendingLocks.indexOf(lastAdded) < pendingLocks.length - 1) {
-      setPendingLocks(pendingLocks.filter(state => state !== lastAdded));
-    } else {
-
-      //if pending locks is more than half, push an update to laravel
-      if (locks && pendingLocks.length > numLocks/2) {
-        //hit laravel endpoint
-        void (async () => {
-          await postLockUpdateToCompany(params.companyName, locks);
-          setPendingLocks([]);
-        })();
-      }
-    }
-  }, [pendingLocks, numLocks]);
-
   const onLockToggle = useCallback(
     (colName: string, newValue: number) => {
       if (!source || !sourceConfig) {
         return;
       }
-      //add lock to pending lock list
-      const list = pendingLocks.map((lock) => lock);
-      setPendingLocks(oldPending => [...oldPending, colName]);
+      setPendingLocks((oldPending) => [...oldPending, colName]);
       void (async () => {
         const locks: object | undefined = await setLock(
           source.dbName,
@@ -88,10 +68,17 @@ export const CompanyPage = memo(() => {
         );
         if (locks) {
           setLocks(locks);
+          const result = await postLockUpdateToCompany(
+            params.companyName as SourceDBName,
+            locks
+          );
+          if (result) {
+            setPendingLocks([]);
+          }
         }
       })();
     },
-    [source, sourceConfig]
+    [params.companyName, source, sourceConfig]
   );
 
   const lockSection = useMemo(() => {
@@ -107,15 +94,13 @@ export const CompanyPage = memo(() => {
       }
     }
 
-    setNumLocks(filteredLocksArray.length);
-
     return filteredLocksArray.map((lock) => (
       <Lock
         className={cx("lock")}
         onToggle={() => onLockToggle(lock[0], lock[1] ? 0 : 1)}
         label={lock[0]}
         value={lock[1] ? true : false}
-        pending={pendingLocks.some(item => item == lock[0]) ? true : false}
+        pending={pendingLocks.some((item) => item == lock[0]) ? true : false}
       />
     ));
   }, [locks, onLockToggle, pendingLocks]);
@@ -137,6 +122,10 @@ export const CompanyPage = memo(() => {
         The list below shows the different locks controlled by you. Click on the
         toggle to adjust the visibility of the corresponding data to{" "}
         {source?.label}
+      </label>
+      <label className={cx("lock-info")}>
+        Locks are updated in realtime on our end. However, to see the changes in
+        effect on {source?.label}'s side, this change may take up to 24 hours
       </label>
       <div className={cx("lock-container")}>{lockSection}</div>
     </div>

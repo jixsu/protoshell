@@ -14,6 +14,7 @@ import {
   getSourceTypeByTypeId,
 } from "@/utils/sources";
 import { Lock } from "./Lock";
+import { postLockUpdateToCompany } from "../../supabase/accounts";
 
 const cx = classNames.bind(styles);
 
@@ -62,6 +63,8 @@ export const CompanyPage = memo(() => {
           newValue
         );
         if (locks) {
+          //hit laravel endpoint
+          postLockUpdateToCompany(params.companyName, locks);
           setLocks(locks);
         }
       })();

@@ -6,7 +6,7 @@ export const getLocks = async (
   userId: string | number
 ) => {
   const { data } = handlePostgresResponse(
-    await supabaseClient.from(sourceDBName).select().eq("ID", userId)
+    await supabaseClient.from(sourceDBName).select().eq("id", userId)
   );
 
   if (data.length) {
@@ -27,7 +27,7 @@ export const setLock = async (
     await supabaseClient
       .from(sourceDBName)
       .update({ [colName]: newValue })
-      .eq("ID", userId)
+      .eq("id", userId)
       .select()
   );
 

@@ -51,4 +51,4 @@ export const getSourceByDBName = (dbName: SourceDBName) => {
   return sources.find((s) => s.dbName === dbName);
 };
 
-export const SOURCE_COLUMN_BLACKLIST = ["ID", "updated_at", "created_at"];
+export const SOURCE_COLUMN_BLACKLIST = ["id", "updated_at", "created_at"];

@@ -53,28 +53,7 @@ export const Lock = memo<LockProps>((props) => {
   }, [onToggle]);
 
   return (
-    <div className={cx("lock-container", className)}>
-      <div className={cx("lhs")}>
-        <label className={cx("label")}>{label}</label>
-        {description && (
-          <label className={cx("description")}>{description}</label>
-        )}
-      </div>
-      <div className={cx("rhs")}>
-        <button onClick={handleToggle} className={cx("toggle-button")}>
-          {value ? "On" : "Off"}
-        </button>
-        {pending ? (
-          <Locking fill="var(--color-grey-0)" className={cx("lock-icon")} />
-        ) : value ? (
-          <Locked fill="var(--color-primary-2)" className={cx("lock-icon")} />
-        ) : (
-          <Unlocked
-            fill="var(--color-dark-6)"
-            className={cx("lock-icon", "locked")}
-          />
-        )}
-      </div>
+    <div>
       {showPopup && (
         <Popup onExit={() => setShowPopup(false)}>
           <div className={cx("popup-text")}>
@@ -91,6 +70,29 @@ export const Lock = memo<LockProps>((props) => {
           </div>
         </Popup>
       )}
+      <div className={cx("lock-container", className)}>
+        <div className={cx("lhs")}>
+          <label className={cx("label")}>{label}</label>
+          {description && (
+            <label className={cx("description")}>{description}</label>
+          )}
+        </div>
+        <div className={cx("rhs")}>
+          <button onClick={handleToggle} className={cx("toggle-button")}>
+            {value ? "On" : "Off"}
+          </button>
+          {pending ? (
+            <Locking fill="var(--color-grey-0)" className={cx("lock-icon")} />
+          ) : value ? (
+            <Locked fill="var(--color-primary-2)" className={cx("lock-icon")} />
+          ) : (
+            <Unlocked
+              fill="var(--color-dark-6)"
+              className={cx("lock-icon", "locked")}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 });

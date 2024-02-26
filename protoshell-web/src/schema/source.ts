@@ -1,5 +1,9 @@
 import { ReactNode } from "react";
 
+export interface LockData {
+  [key: string]: string;
+}
+
 export type Source = {
   id: string;
   dbName: SourceDBName;
@@ -9,6 +13,8 @@ export type Source = {
   typeId: string;
   logo: ReactNode;
   // TODO (tentative): props relating to what it's tracking
+  lockInfo: LockData;
+  lockConfirms: LockData;
 };
 
 export type SourceType = {

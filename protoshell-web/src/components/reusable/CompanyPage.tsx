@@ -97,16 +97,17 @@ export const CompanyPage = memo(() => {
     return filteredLocksArray.map((lock) => (
       <Lock
         className={cx("lock")}
+        description={source && lock[0] in source.lockInfo ? source.lockInfo[lock[0] as keyof typeof source.lockInfo] : source?.lockInfo.DEFAULT}
         onToggle={() => onLockToggle(lock[0], lock[1] ? 0 : 1)}
         label={lock[0]}
         value={lock[1] ? true : false}
         pending={pendingLocks.some((item) => item == lock[0]) ? true : false}
         popupTitle={
           lock[1]
-            ? `Unlocking ${lock[0]} Attempt`
-            : `Locking ${lock[0]} Attempt`
+            ? `Unlocking ${lock[0]}`
+            : `Locking ${lock[0]}`
         }
-        popupDescription={lock[1] ? "Enter Generic description here" : "idk"}
+        popupDescription={source && lock[0] in source.lockConfirms ? source.lockConfirms[lock[0] as keyof typeof source.lockConfirms] : source?.lockConfirms.DEFAULT}
       />
     ));
   }, [locks, onLockToggle, pendingLocks]);

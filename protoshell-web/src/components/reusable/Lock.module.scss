@@ -42,12 +42,26 @@
   gap: 12px;
 }
 
+.lhs {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.description {
+  font-size: 10px;
+  line-height: 16px;
+  color: var(--color-grey-0);
+}
+
 .popup-text {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 18px;
   align-items: center;
-  padding: 18px;
+  padding: 24px;
 
   .popup-title {
     font-weight: 600;
@@ -56,7 +70,7 @@
 
   .popup-description {
     font-weight: 500;
-    font-size: 12px;
+    font-size: 14px;
     color: var(--color-grey-0);
   }
 }

@@ -49,6 +49,7 @@ export const Lock = memo<LockProps>((props) => {
 
   const handlePopupConfirm = useCallback(() => {
     onToggle();
+    setShowPopup(false);
   }, [onToggle]);
 
   return (

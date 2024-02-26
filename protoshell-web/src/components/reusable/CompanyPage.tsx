@@ -101,6 +101,12 @@ export const CompanyPage = memo(() => {
         label={lock[0]}
         value={lock[1] ? true : false}
         pending={pendingLocks.some((item) => item == lock[0]) ? true : false}
+        popupTitle={
+          lock[1]
+            ? `Unlocking ${lock[0]} Attempt`
+            : `Locking ${lock[0]} Attempt`
+        }
+        popupDescription={lock[1] ? "Enter Generic description here" : "idk"}
       />
     ));
   }, [locks, onLockToggle, pendingLocks]);

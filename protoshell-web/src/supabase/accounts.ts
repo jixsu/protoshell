@@ -27,8 +27,8 @@ export const postLockUpdateToCompany = async (
       }
       return 0;
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     return 0;
   }
 };

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://jixsu.github.io/protoshell",
+  "homepage": "https://jixsu.github.io/protoshell/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

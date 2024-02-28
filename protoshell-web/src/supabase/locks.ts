@@ -26,6 +26,8 @@ export const setLock = async (
   const { data } = handlePostgresResponse(
     await supabaseClient
       .from(sourceDBName)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       .update({ [colName]: newValue })
       .eq("id", userId)
       .select()

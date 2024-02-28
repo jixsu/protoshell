@@ -28,6 +28,7 @@ export const postLockUpdateToCompany = async (
       return 0;
     }
   } catch (err) {
+    console.log(err);
     return 0;
   }
 };

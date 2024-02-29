@@ -50,6 +50,8 @@ const router = createBrowserRouter(
   { basename: import.meta.env.PROD ? "/protoshell" : "/" }
 );
 
+console.log(import.meta.env.PROD ? "/protoshell" : "/");
+
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

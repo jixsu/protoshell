@@ -6,6 +6,8 @@ import svgr from "vite-plugin-svgr";
 import path from "path";
 
 // https://vitejs.dev/config/
+const base = process.env.VITE_BASENAME;
+
 export default defineConfig({
   plugins: [react(), svgr()],
   resolve: {
@@ -13,5 +15,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/protoshell/",
+  base: base,
 });

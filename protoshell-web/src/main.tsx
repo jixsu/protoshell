@@ -19,33 +19,36 @@ import { PersistGate } from "redux-persist/integration/react";
 import { CompanyPage } from "./components/reusable/CompanyPage.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const router = createBrowserRouter([
-  {
-    path: HOME_ROUTE,
-    element: <App />,
-    errorElement: <Error />,
-    children: [
-      {
-        path: CONTROL_CENTER_ROUTE,
-        element: <ControlCenter />,
-      },
-      {
-        path: CONTROL_CENTER_ROUTE + "/:companyName",
-        element: <CompanyPage />,
-      },
-    ],
-  },
-  {
-    path: LOGIN_ROUTE,
-    element: <Login />,
-    errorElement: <Error />,
-  },
-  {
-    path: SIGNUP_ROUTE,
-    element: <Signup />,
-    errorElement: <Error />,
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: HOME_ROUTE,
+      element: <App />,
+      errorElement: <Error />,
+      children: [
+        {
+          path: CONTROL_CENTER_ROUTE,
+          element: <ControlCenter />,
+        },
+        {
+          path: CONTROL_CENTER_ROUTE + "/:companyName",
+          element: <CompanyPage />,
+        },
+      ],
+    },
+    {
+      path: LOGIN_ROUTE,
+      element: <Login />,
+      errorElement: <Error />,
+    },
+    {
+      path: SIGNUP_ROUTE,
+      element: <Signup />,
+      errorElement: <Error />,
+    },
+  ],
+  { basename: import.meta.env.PROD ? "/protoshell" : "/" }
+);
 
 const queryClient = new QueryClient();
 

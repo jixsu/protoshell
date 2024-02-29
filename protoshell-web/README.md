@@ -1,3 +1,6 @@
+# Protoshell Web
+User management platform for users to control permissions on company-collected user data
+
 # Get Started
 
 Install dependencies with

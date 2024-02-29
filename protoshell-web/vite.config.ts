@@ -6,11 +6,7 @@ import svgr from "vite-plugin-svgr";
 import path from "path";
 
 // https://vitejs.dev/config/
-const base = process.env.VITE_BASENAME;
-
-console.log(base);
-
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ command }) => {
   // configure base (base url for dev vs. GH pages) for ProtoShell
   const base = command === "serve" ? "/" : "protoshell";
 

@@ -86,6 +86,7 @@ export const ControlCenter = memo(() => {
               active: activeFilters.includes(sourceType.id),
             })}
             onClick={() => handleFilterToggle(sourceType.id)}
+            key={`${sourceType.name}-filter`}
           >
             <label className={cx("filter-button-label")}>
               {sourceType.label}
@@ -103,7 +104,10 @@ export const ControlCenter = memo(() => {
 
         // only show headers if they have > 0 sources (including filters)
         return sourcesByType.length > 0 ? (
-          <div className={cx("type-container")}>
+          <div
+            className={cx("type-container")}
+            key={`${sourceType.name}-group`}
+          >
             <label className={cx("source-type-header")}>
               {sourceType.label}
             </label>
@@ -112,6 +116,7 @@ export const ControlCenter = memo(() => {
                 <div
                   className={cx("source-container")}
                   onClick={() => handleSourceClick(s.dbName)}
+                  key={`${s.name}-button`}
                 >
                   {s.logo}
                   <label className={cx("header")}>{s.label}</label>

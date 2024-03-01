@@ -18,6 +18,7 @@ import { persistor, store } from "@/store/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
 import { CompanyPage } from "./components/reusable/CompanyPage.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Dashboard } from "./components/Dashboard.tsx";
 
 const router = createBrowserRouter(
   [
@@ -26,6 +27,10 @@ const router = createBrowserRouter(
       element: <App />,
       errorElement: <Error />,
       children: [
+        {
+          path: HOME_ROUTE,
+          element: <Dashboard />,
+        },
         {
           path: CONTROL_CENTER_ROUTE,
           element: <ControlCenter />,

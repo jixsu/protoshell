@@ -3,8 +3,7 @@ import classNames from "classnames/bind";
 import styles from "./Avatar.module.scss";
 import { Dropdown } from "./Dropdown";
 import { DropdownItem } from "./DropdownItem";
-import { dispatch } from "@/store/store";
-import { authSlice } from "@/store/slices/auth";
+import { signout } from "@/utils/signout";
 
 const cx = classNames.bind(styles);
 
@@ -36,7 +35,7 @@ export const Avatar = memo<AvatarProps>((props) => {
   }, [clickable]);
 
   const handleSignOut = useCallback(() => {
-    dispatch(authSlice.actions.setUser(undefined));
+    signout();
   }, []);
 
   const dropdownRef = useRef<HTMLDivElement>(null);

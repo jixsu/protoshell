@@ -48,5 +48,10 @@ export const sourcesSlice = createSlice({
         state.sourceConfigs.filter((s) => s !== action.payload);
       }
     },
+    clearSourceConfig: (state) => {
+      if (state.sourceConfigs) {
+        state.sourceConfigs = undefined;
+      }
+    },
   },
 });

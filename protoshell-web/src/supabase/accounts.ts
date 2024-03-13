@@ -7,7 +7,7 @@ export const postLockUpdateToCompany = async (
   try {
     if (sourceDBName == "protoshop") {
       const response = await fetch(
-        "http://18.222.135.5/api/update-permissions/customers",
+        "https://protoshell.ca/api/update-permissions/customers",
         {
           method: "POST",
           headers: {

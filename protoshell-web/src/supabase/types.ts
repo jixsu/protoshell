@@ -41,26 +41,26 @@ export interface Database {
       sources: {
         Row: {
           user_id: string;
-          amazon_demo: boolean;
-          amazon_demo_id: number;
+          protoshop: boolean;
+          protoshop_id: number;
         };
         Insert: {
           user_id: string;
-          amazon_demo?: boolean;
-          amazon_demo_id?: number;
+          protoshop?: boolean;
+          protoshop_id?: number;
         };
         Update: {
           user_id?: string;
-          amazon_demo?: boolean;
-          amazon_demo_id?: number;
+          protoshop?: boolean;
+          protoshop_id?: number;
         };
         Upsert: {
           user_id: string;
-          amazon_demo?: boolean;
-          amazon_demo_id?: number;
+          protoshop?: boolean;
+          protoshop_id?: number;
         };
       };
-      amazon_demo: {
+      protoshop: {
         Row: {
           id: number;
           NAME: number;

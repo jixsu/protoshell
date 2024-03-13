@@ -5,7 +5,7 @@ export const postLockUpdateToCompany = async (
   locks: object
 ) => {
   try {
-    if (sourceDBName == "amazon_demo") {
+    if (sourceDBName == "protoshop") {
       const response = await fetch(
         "http://18.222.135.5/api/update-permissions/customers",
         {

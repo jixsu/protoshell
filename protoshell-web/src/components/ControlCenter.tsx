@@ -129,7 +129,7 @@ export const ControlCenter = memo(() => {
                   onClick={() => handleSourceClick(s.dbName)}
                   key={`${s.name}-button`}
                 >
-                  {s.logo}
+                  <img src={s.logo} width={60} />
                   <label className={cx("header")}>{s.label}</label>
                   <label className={cx("label")}>{sourceType.label}</label>
                   {/* TODO: Complete the source container */}

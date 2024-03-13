@@ -124,7 +124,9 @@ export const CompanyPage = memo(() => {
         {"<-"}
       </button>
       <div className={cx("company-info-container")}>
-        <div className={cx("lhs")}>{source?.logo}</div>
+        <div className={cx("lhs")}>
+          <img src={source?.logo} width={100} />
+        </div>
         <div className={cx("rhs")}>
           <label className={cx("header")}>{source?.label}</label>
           <label className={cx("label")}>{sourceType?.label}</label>

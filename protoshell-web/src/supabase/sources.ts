@@ -16,13 +16,13 @@ export const getUserSourceConfigs = async (userId: string) => {
 
   const sourceConfigs: SourceConfig[] = [];
 
-  if (userSources.amazon_demo) {
-    const sourceId = getSourceIdByDBName("amazon_demo");
+  if (userSources.protoshop) {
+    const sourceId = getSourceIdByDBName("protoshop");
     if (sourceId) {
       sourceConfigs.push({
-        name: "amazon_demo",
+        name: "protoshop",
         id: sourceId,
-        userId: userSources.amazon_demo_id,
+        userId: userSources.protoshop_id,
       });
     }
   }

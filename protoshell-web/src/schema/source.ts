@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export interface LockData {
   [key: string]: string;
 }
@@ -11,7 +9,7 @@ export type Source = {
   label: string;
   description: string;
   typeId: string;
-  logo: ReactNode;
+  logo: string;
   // TODO (tentative): props relating to what it's tracking
   lockInfo: LockData;
   lockConfirms: LockData;
@@ -24,7 +22,7 @@ export type SourceType = {
   label: string;
 };
 
-export type SourceDBName = "amazon_demo";
+export type SourceDBName = "protoshop";
 
 export type IntegrateResponse = {
   uid: number;

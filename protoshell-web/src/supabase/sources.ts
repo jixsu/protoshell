@@ -33,7 +33,7 @@ export const getUserSourceConfigs = async (userId: string) => {
       sourceConfigs.push({
         name: "protoshop_clickstream",
         id: sourceId,
-        userId: userSources.protoshop_id,
+        userId: userSources.protoshop_clickstream_id,
       });
     }
   }

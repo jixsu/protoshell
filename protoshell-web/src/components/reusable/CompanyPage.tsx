@@ -44,7 +44,7 @@ export const CompanyPage = memo(() => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const locks: object | undefined = await getLocks(
           sourceConfig.name,
-          sourceConfig.id
+          sourceConfig.userId
         );
 
         if (locks) {
@@ -63,7 +63,7 @@ export const CompanyPage = memo(() => {
       void (async () => {
         const locks: object | undefined = await setLock(
           source.dbName,
-          sourceConfig.id,
+          sourceConfig.userId,
           colName,
           newValue
         );

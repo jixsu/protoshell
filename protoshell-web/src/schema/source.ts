@@ -25,3 +25,7 @@ export type SourceType = {
 };
 
 export type SourceDBName = "amazon_demo";
+
+export type IntegrateResponse = {
+  uid: number;
+};

@@ -27,7 +27,7 @@ export const sources: Source[] = [
       DEFAULT:
         "Are you sure? By blocking this data, some Amazon services may no longer be optimized for your user experience, and some services may become unavailable.",
     },
-    integrationEndpoint: "https://protoshell.ca:81/cross-auth",
+    integrationEndpoint: "https://shop.protoshell.ca/api/cross-auth",
   },
 ];
 

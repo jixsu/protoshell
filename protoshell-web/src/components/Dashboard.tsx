@@ -58,7 +58,7 @@ export const Dashboard = memo(() => {
           <label className={cx("label")}>
             {" "}
             active source collecting data on your information.
-            {sourceConfigs?.length !== 1 && "s"}
+            {sourceConfigs?.length !== 1 && sourceConfigs?.length !== 0 && "s"}
           </label>
         </div>
         <div>

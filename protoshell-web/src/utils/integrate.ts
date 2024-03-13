@@ -1,11 +1,10 @@
-import { Source } from "@/schema";
+import { IntegrateResponse, Source } from "@/schema";
 
 export const integrateWithSource = async (
   source: Source,
   email: string,
   password: string
-) => {
-  console.log(source.integrationEndpoint);
+): Promise<undefined | IntegrateResponse> => {
   const res = await fetch(source.integrationEndpoint, {
     method: "POST",
     body: JSON.stringify({
@@ -17,9 +16,11 @@ export const integrateWithSource = async (
     },
   });
 
-  console.log(res);
+  if (res.status >= 300) {
+    return undefined;
+  }
 
-  // TODO: return proper response
+  const data = res.json() as Promise<IntegrateResponse>;
 
-  return false;
+  return data;
 };

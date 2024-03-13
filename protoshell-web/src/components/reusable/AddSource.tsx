@@ -7,11 +7,15 @@ import styles from "./AddSource.module.scss";
 import { Source } from "@/schema";
 import { integrateWithSource } from "@/utils/integrate";
 import { Loading } from "./Loading";
-import { linkUserWithSource } from "@/supabase/sources";
+import { getUserSourceConfigs, linkUserWithSource } from "@/supabase/sources";
+import { useNavigate } from "react-router-dom";
+import { CONTROL_CENTER_ROUTE } from "@/utils/routes";
+import { dispatch } from "@/store/store";
+import { sourcesSlice } from "@/store/slices/sources";
 
 const cx = classNames.bind(styles);
 
-type FlowState = "SELECT" | "AUTH";
+type FlowState = "SELECT" | "AUTH" | "SUCCESS";
 
 type AddSourceProps = {
   onClose: () => void;
@@ -32,6 +36,7 @@ export const AddSource = memo<AddSourceProps>((props) => {
   const [loading, setLoading] = useState(false);
   const sourceConfigs = useAppSelector((state) => state.sources.sourceConfigs);
   const user = useAppSelector((state) => state.auth.user);
+  const navigate = useNavigate();
 
   const sourcesModified = useMemo(() => {
     if (!sourceConfigs) {
@@ -42,8 +47,7 @@ export const AddSource = memo<AddSourceProps>((props) => {
       if (sourceConfigs.find((sc) => sc.id === s.id)) {
         return {
           ...s,
-          // TODO: CHANGE to true
-          integrated: false,
+          integrated: true,
         };
       } else {
         setNoIntegratedSourcesRemain(false);
@@ -54,8 +58,6 @@ export const AddSource = memo<AddSourceProps>((props) => {
       }
     });
   }, [sourceConfigs]);
-
-  console.log(sourcesModified);
 
   const onExitPopup = useCallback(() => {
     onClose();
@@ -75,7 +77,6 @@ export const AddSource = memo<AddSourceProps>((props) => {
     }
     setLoading(true);
 
-    console.log("integrating...");
     const integrateRes = await integrateWithSource(
       selectedSource,
       email,
@@ -84,20 +85,24 @@ export const AddSource = memo<AddSourceProps>((props) => {
 
     if (!integrateRes) {
       setIntegrateError(true);
+      setLoading(false);
       return;
     }
 
-    // TODO: update this to proper data once it's working
-    const sourceId = integrateRes ? 1 : 0;
-
+    const sourceId = integrateRes.uid;
     const linkRes = await linkUserWithSource(user.id, selectedSource, sourceId);
 
     if (!linkRes) {
       setIntegrateError(true);
+      setLoading(false);
       return;
     }
 
+    setFlowState("SUCCESS");
     setLoading(false);
+
+    const sourceConfigs = await getUserSourceConfigs(user.id);
+    dispatch(sourcesSlice.actions.setSourceConfigs(sourceConfigs));
   }, [email, password, selectedSource, user]);
 
   const selectFlow = useMemo(() => {
@@ -263,11 +268,54 @@ export const AddSource = memo<AddSourceProps>((props) => {
     selectedSource?.label,
   ]);
 
+  const successFlow = useMemo(() => {
+    return (
+      <>
+        <div className={cx("header-row")}>
+          <label className={cx("header")}>New integration added</label>
+        </div>
+        <label className={cx("label")}>
+          {selectedSource?.label} has been successfully integrated with
+          ProtoShell!
+        </label>
+        <label className={cx("label-small")}>
+          You can now see the different locks that you can control through for{" "}
+          {selectedSource?.label}
+          ProtoShell in the Control Center. Feel free to close this popup or
+          click the button below to go to the Control Center
+        </label>
+
+        <div className={cx("flow-nav")}>
+          <button
+            className={cx("next-button")}
+            onClick={() => {
+              navigate(`${CONTROL_CENTER_ROUTE}`);
+            }}
+          >
+            <label className={cx("button-label")}>Go to Control Center</label>
+          </button>
+          <button className={cx("back-button")} onClick={onExitPopup}>
+            <label className={cx("button-label")}>Close</label>
+          </button>
+        </div>
+      </>
+    );
+  }, [navigate, onExitPopup, selectedSource?.label]);
+
+  const renderPopup = useMemo(() => {
+    switch (flowState) {
+      case "SELECT":
+        return selectFlow;
+      case "AUTH":
+        return authFlow;
+      case "SUCCESS":
+        return successFlow;
+    }
+  }, [authFlow, flowState, selectFlow, successFlow]);
+
   return (
     <Popup onExit={onExitPopup}>
-      <div className={cx("add-source-container")}>
-        {flowState === "SELECT" ? selectFlow : authFlow}
-      </div>
+      <div className={cx("add-source-container")}>{renderPopup}</div>
     </Popup>
   );
 });

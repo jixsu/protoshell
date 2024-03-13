@@ -8,6 +8,10 @@ export const getUserSourceConfigs = async (userId: string) => {
     await supabaseClient.from("sources").select().eq("user_id", userId)
   );
 
+  if (!data.length) {
+    return [];
+  }
+
   const userSources = data[0];
 
   const sourceConfigs: SourceConfig[] = [];
@@ -23,6 +27,7 @@ export const getUserSourceConfigs = async (userId: string) => {
     }
   }
 
+  console.log("yep");
   return sourceConfigs;
 };
 
@@ -34,13 +39,17 @@ export const linkUserWithSource = async (
   const sourceColName = source.dbName;
   const sourceColId = `${source.dbName}_id`;
 
+  console.log(userId, source, sourceId);
+
   const { data } = handlePostgresResponse(
     await supabaseClient
       .from("sources")
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      .update({ [sourceColName]: true }, { [sourceColId]: sourceId })
-      .eq("user_id", userId)
+      .upsert(
+        { user_id: userId, [sourceColName]: true, [sourceColId]: sourceId },
+        { onConflict: "user_id" }
+      )
       .select()
   );
 

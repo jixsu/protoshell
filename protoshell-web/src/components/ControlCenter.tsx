@@ -8,12 +8,14 @@ import { useAppSelector } from "@/store/hooks";
 import { dispatch } from "@/store/store";
 import { getUserSourceConfigs } from "@/supabase/sources";
 import { sourcesSlice } from "@/store/slices/sources";
+import { AddSource } from "./reusable/AddSource";
 
 const cx = classNames.bind(styles);
 
 export const ControlCenter = memo(() => {
   // TODO: This should be taken from central state to persist filters
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [showAddSource, setShowAddSource] = useState(false);
   const navigate = useNavigate();
 
   const user = useAppSelector((state) => state.auth.user);
@@ -77,7 +79,16 @@ export const ControlCenter = memo(() => {
 
   return (
     <div className={cx("control-center-container")}>
-      <label className={cx("sources-label")}>Sources</label>
+      <div className={cx("header-container")}>
+        <label className={cx("sources-label")}>Sources</label>
+        <button
+          className={cx("sources-button")}
+          onClick={() => setShowAddSource(true)}
+        >
+          <label className={cx("button-label")}>Add Source</label>
+        </button>
+        {showAddSource && <AddSource onClose={() => setShowAddSource(false)} />}
+      </div>
       {/* TODO: Could add some adjustment for how each source is displayed, i.e. size or list like in file explorer */}
       <div className={cx("filter-bar-container")}>
         {sourceTypes.map((sourceType) => (

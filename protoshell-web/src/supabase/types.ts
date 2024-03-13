@@ -45,14 +45,19 @@ export interface Database {
           amazon_demo_id: number;
         };
         Insert: {
-          user_id?: string;
-          amazon_demo: boolean;
-          amazon_demo_id: number;
+          user_id: string;
+          amazon_demo?: boolean;
+          amazon_demo_id?: number;
         };
         Update: {
           user_id?: string;
-          amazon_demo: boolean;
-          amazon_demo_id: number;
+          amazon_demo?: boolean;
+          amazon_demo_id?: number;
+        };
+        Upsert: {
+          user_id: string;
+          amazon_demo?: boolean;
+          amazon_demo_id?: number;
         };
       };
       amazon_demo: {

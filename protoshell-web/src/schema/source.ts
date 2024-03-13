@@ -15,6 +15,7 @@ export type Source = {
   // TODO (tentative): props relating to what it's tracking
   lockInfo: LockData;
   lockConfirms: LockData;
+  integrationEndpoint: string;
 };
 
 export type SourceType = {
@@ -24,3 +25,7 @@ export type SourceType = {
 };
 
 export type SourceDBName = "amazon_demo";
+
+export type IntegrateResponse = {
+  uid: number;
+};

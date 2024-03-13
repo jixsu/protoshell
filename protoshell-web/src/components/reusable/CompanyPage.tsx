@@ -46,6 +46,7 @@ export const CompanyPage = memo(() => {
           sourceConfig.name,
           sourceConfig.userId
         );
+
         if (locks) {
           setLocks(locks);
         }
@@ -94,8 +95,9 @@ export const CompanyPage = memo(() => {
       }
     }
 
-    return filteredLocksArray.map((lock) => (
+    return filteredLocksArray.map((lock, i) => (
       <Lock
+        key={`lock-${i}`}
         className={cx("lock")}
         description={
           source && lock[0] in source.lockInfo

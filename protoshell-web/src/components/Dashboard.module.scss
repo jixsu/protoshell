@@ -18,14 +18,17 @@
   }
 
   .content {
-
     .label {
       font-size: 16px;
       font-weight: 500;
     }
 
+    .or-padding {
+      padding: 0 12px;
+    }
+
     .primary {
-      color: var(--color-primary-0)
+      color: var(--color-primary-0);
     }
 
     .sources-button {
@@ -34,7 +37,8 @@
       outline: none;
       border: none;
 
-      &:hover, &.active {
+      &:hover,
+      &.active {
         background: var(--color-primary-0);
         border: none;
         outline: none;

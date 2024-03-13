@@ -65,7 +65,7 @@ export const Lock = memo<LockProps>((props) => {
           <div className={cx("popup-actions")}>
             <button onClick={() => setShowPopup(false)}>Cancel</button>
             <button onClick={handlePopupConfirm}>
-              {value ? "Unlock" : "Lock"}
+              {!value ? "Unlock" : "Lock"}
             </button>
           </div>
         </Popup>
@@ -79,11 +79,11 @@ export const Lock = memo<LockProps>((props) => {
         </div>
         <div className={cx("rhs")}>
           <button onClick={handleToggle} className={cx("toggle-button")}>
-            {value ? "On" : "Off"}
+            {!value ? "On" : "Off"}
           </button>
           {pending ? (
             <Locking fill="var(--color-grey-0)" className={cx("lock-icon")} />
-          ) : value ? (
+          ) : !value ? (
             <Locked fill="var(--color-primary-2)" className={cx("lock-icon")} />
           ) : (
             <Unlocked

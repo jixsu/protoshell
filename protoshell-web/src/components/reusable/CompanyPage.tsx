@@ -108,7 +108,7 @@ export const CompanyPage = memo(() => {
         label={lock[0]}
         value={lock[1] ? true : false}
         pending={pendingLocks.some((item) => item == lock[0]) ? true : false}
-        popupTitle={lock[1] ? `Unlocking ${lock[0]}` : `Locking ${lock[0]}`}
+        popupTitle={lock[1] ? `Locking ${lock[0]}` : `Unlocking ${lock[0]}`}
         popupDescription={
           source && lock[0] in source.lockConfirms
             ? source.lockConfirms[lock[0] as keyof typeof source.lockConfirms]

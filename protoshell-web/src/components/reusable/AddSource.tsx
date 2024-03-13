@@ -123,7 +123,8 @@ export const AddSource = memo<AddSourceProps>((props) => {
         </label>
         {noIntegratedSourcesRemain && (
           <label className={cx("label-special")}>
-            You have added all existing sources integrated with ProtoShell!
+            You have already added all existing sources integrated with
+            ProtoShell.
           </label>
         )}
         <div className={cx("sources-grid")}>
@@ -145,7 +146,7 @@ export const AddSource = memo<AddSourceProps>((props) => {
                 }}
                 key={`${s.name}-button`}
               >
-                {s.logo}
+                <img src={s.logo} width={60} />
                 <label className={cx("header")}>{s.label}</label>
                 <label className={cx("label")}>{sourceType?.label}</label>
                 {s.integrated && (

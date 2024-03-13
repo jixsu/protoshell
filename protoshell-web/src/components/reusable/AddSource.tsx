@@ -5,13 +5,14 @@ import { useAppSelector } from "@/store/hooks";
 import classNames from "classnames/bind";
 import styles from "./AddSource.module.scss";
 import { Source } from "@/schema";
-import { integrateWithSource } from "@/utils/integrate";
+import { getSourceLocks, integrateWithSource } from "@/utils/integrate";
 import { Loading } from "./Loading";
 import { getUserSourceConfigs, linkUserWithSource } from "@/supabase/sources";
 import { useNavigate } from "react-router-dom";
 import { CONTROL_CENTER_ROUTE } from "@/utils/routes";
 import { dispatch } from "@/store/store";
 import { sourcesSlice } from "@/store/slices/sources";
+import { upsertLocks } from "@/supabase/locks";
 
 const cx = classNames.bind(styles);
 
@@ -93,6 +94,25 @@ export const AddSource = memo<AddSourceProps>((props) => {
     const linkRes = await linkUserWithSource(user.id, selectedSource, sourceId);
 
     if (!linkRes) {
+      setIntegrateError(true);
+      setLoading(false);
+      return;
+    }
+
+    const locksRes = await getSourceLocks(selectedSource, sourceId);
+    console.log(locksRes);
+
+    if (!locksRes) {
+      setIntegrateError(true);
+      setLoading(false);
+      return;
+    }
+
+    const upsertLocksRes = await upsertLocks(selectedSource.dbName, locksRes);
+
+    console.log(upsertLocksRes);
+
+    if (!upsertLocksRes) {
       setIntegrateError(true);
       setLoading(false);
       return;
@@ -303,20 +323,14 @@ export const AddSource = memo<AddSourceProps>((props) => {
     );
   }, [navigate, onExitPopup, selectedSource?.label]);
 
-  const renderPopup = useMemo(() => {
-    switch (flowState) {
-      case "SELECT":
-        return selectFlow;
-      case "AUTH":
-        return authFlow;
-      case "SUCCESS":
-        return successFlow;
-    }
-  }, [authFlow, flowState, selectFlow, successFlow]);
-
   return (
     <Popup onExit={onExitPopup}>
-      <div className={cx("add-source-container")}>{renderPopup}</div>
+      {/* <div className={cx("add-source-container")}>{renderPopup}</div> */}
+      <div className={cx("add-source-container")}>
+        {flowState === "SELECT" && selectFlow}
+        {flowState === "AUTH" && authFlow}
+        {flowState === "SUCCESS" && successFlow}
+      </div>
     </Popup>
   );
 });

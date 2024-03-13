@@ -43,21 +43,29 @@ export interface Database {
           user_id: string;
           protoshop: boolean;
           protoshop_id: number;
+          protoshop_clickstream: boolean;
+          protoshop_clickstream_id: number;
         };
         Insert: {
           user_id: string;
           protoshop?: boolean;
           protoshop_id?: number;
+          protoshop_clickstream?: boolean;
+          protoshop_clickstream_id?: number;
         };
         Update: {
           user_id?: string;
           protoshop?: boolean;
           protoshop_id?: number;
+          protoshop_clickstream?: boolean;
+          protoshop_clickstream_id?: number;
         };
         Upsert: {
           user_id: string;
           protoshop?: boolean;
           protoshop_id?: number;
+          protoshop_clickstream?: boolean;
+          protoshop_clickstream_id?: number;
         };
       };
       protoshop: {
@@ -87,6 +95,41 @@ export interface Database {
           SALARY: number;
           updated_at: string;
           created_at: string;
+        };
+      };
+      protoshop_clickstream: {
+        Row: {
+          id: number;
+          target: number;
+          click_page: number;
+          ip: number;
+          loc: number;
+          geoloc: number;
+          device: number;
+          updated_at: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: number;
+          target: number;
+          click_page: number;
+          ip: number;
+          loc: number;
+          geoloc: number;
+          device: number;
+          updated_at: string;
+          created_at: string;
+        };
+        Update: {
+          id?: number;
+          target?: number;
+          click_page?: number;
+          ip?: number;
+          loc?: number;
+          geoloc?: number;
+          device?: number;
+          updated_at?: string;
+          created_at?: string;
         };
       };
     };

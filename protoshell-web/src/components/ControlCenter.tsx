@@ -35,8 +35,11 @@ export const ControlCenter = memo(() => {
       return [];
     }
     const activeSourceIds = sourceConfigs.map((sc) => sc.id);
-    sources.filter((s) => activeSourceIds?.includes(s.id));
-    return sources;
+    const filteredSources = sources.filter((s) =>
+      activeSourceIds?.includes(s.id)
+    );
+
+    return filteredSources;
   }, [sourceConfigs]);
 
   const handleFilterToggle = (id: string) => {

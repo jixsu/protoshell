@@ -26,6 +26,27 @@ export const postLockUpdateToCompany = async (
         return 1;
       }
       return 0;
+    } else if (sourceDBName == "protoshop_clickstream") {
+      const response = await fetch(
+        "https://protoshell.ca/api/update-permissions/clickstream",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key":
+              "qLNcGV0LekdvHbT2VaLQ6jHcAO561afnERP4xvOrIULRxlS4jwMVT7YFfGC7FCY7",
+          },
+          body: JSON.stringify({
+            data: [locks],
+          }),
+        }
+      );
+      console.log(response);
+
+      if (response.status === 200) {
+        return 1;
+      }
+      return 0;
     }
   } catch (error) {
     console.log(error);

@@ -14,6 +14,7 @@ export type Source = {
   lockInfo: LockData;
   lockConfirms: LockData;
   integrationEndpoint: string;
+  permissionsEndpoint: string;
 };
 
 export type SourceType = {
@@ -22,8 +23,21 @@ export type SourceType = {
   label: string;
 };
 
-export type SourceDBName = "protoshop";
+export type SourceDBName = "protoshop" | "protoshop_clickstream";
 
 export type IntegrateResponse = {
   uid: number;
+};
+
+// TODO: Update response type
+export type SourceLockResponse = {
+  id: number;
+  updated_at: string;
+  created_at: string;
+  click_page: string;
+  loc: number;
+  geoloc: number;
+  ip: number;
+  device: number;
+  target: number;
 };

@@ -40,3 +40,24 @@ export const setLock = async (
 
   return undefined;
 };
+
+export const upsertLocks = async (
+  sourceDBName: SourceDBName,
+  locks: object
+) => {
+  const { data } = handlePostgresResponse(
+    await supabaseClient
+      .from(sourceDBName)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      .upsert(locks, { onConflict: "id" })
+      .select()
+  );
+
+  if (data.length) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return data[0];
+  }
+
+  return undefined;
+};

@@ -1,4 +1,4 @@
-import { IntegrateResponse, Source } from "@/schema";
+import { IntegrateResponse, Source, SourceLockResponse } from "@/schema";
 
 export const integrateWithSource = async (
   source: Source,
@@ -32,6 +32,8 @@ export const getSourceLocks = async (source: Source, id: number) => {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
+        "x-api-key":
+          "qLNcGV0LekdvHbT2VaLQ6jHcAO561afnERP4xvOrIULRxlS4jwMVT7YFfGC7FCY7",
       },
     });
 
@@ -39,7 +41,7 @@ export const getSourceLocks = async (source: Source, id: number) => {
       return undefined;
     }
 
-    const data = res.json();
+    const data = res.json() as Promise<SourceLockResponse>;
 
     return data;
   }

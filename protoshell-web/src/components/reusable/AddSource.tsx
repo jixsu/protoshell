@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { CONTROL_CENTER_ROUTE } from "@/utils/routes";
 import { dispatch } from "@/store/store";
 import { sourcesSlice } from "@/store/slices/sources";
+import { upsertLocks } from "@/supabase/locks";
 
 const cx = classNames.bind(styles);
 
@@ -100,7 +101,22 @@ export const AddSource = memo<AddSourceProps>((props) => {
 
     const locksRes = await getSourceLocks(selectedSource, sourceId);
     console.log(locksRes);
-    // TODO: Get lock response and upsert to supabase table
+
+    if (!locksRes) {
+      setIntegrateError(true);
+      setLoading(false);
+      return;
+    }
+
+    const upsertLocksRes = await upsertLocks(selectedSource.dbName, locksRes);
+
+    console.log(upsertLocksRes);
+
+    if (!upsertLocksRes) {
+      setIntegrateError(true);
+      setLoading(false);
+      return;
+    }
 
     setFlowState("SUCCESS");
     setLoading(false);

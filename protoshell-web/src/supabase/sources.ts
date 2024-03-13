@@ -27,7 +27,17 @@ export const getUserSourceConfigs = async (userId: string) => {
     }
   }
 
-  console.log("yep");
+  if (userSources.protoshop_clickstream) {
+    const sourceId = getSourceIdByDBName("protoshop_clickstream");
+    if (sourceId) {
+      sourceConfigs.push({
+        name: "protoshop_clickstream",
+        id: sourceId,
+        userId: userSources.protoshop_id,
+      });
+    }
+  }
+
   return sourceConfigs;
 };
 

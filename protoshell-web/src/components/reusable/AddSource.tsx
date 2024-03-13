@@ -5,7 +5,7 @@ import { useAppSelector } from "@/store/hooks";
 import classNames from "classnames/bind";
 import styles from "./AddSource.module.scss";
 import { Source } from "@/schema";
-import { integrateWithSource } from "@/utils/integrate";
+import { getSourceLocks, integrateWithSource } from "@/utils/integrate";
 import { Loading } from "./Loading";
 import { getUserSourceConfigs, linkUserWithSource } from "@/supabase/sources";
 import { useNavigate } from "react-router-dom";
@@ -97,6 +97,10 @@ export const AddSource = memo<AddSourceProps>((props) => {
       setLoading(false);
       return;
     }
+
+    const locksRes = await getSourceLocks(selectedSource, sourceId);
+    console.log(locksRes);
+    // TODO: Get lock response and upsert to supabase table
 
     setFlowState("SUCCESS");
     setLoading(false);
@@ -303,20 +307,14 @@ export const AddSource = memo<AddSourceProps>((props) => {
     );
   }, [navigate, onExitPopup, selectedSource?.label]);
 
-  const renderPopup = useMemo(() => {
-    switch (flowState) {
-      case "SELECT":
-        return selectFlow;
-      case "AUTH":
-        return authFlow;
-      case "SUCCESS":
-        return successFlow;
-    }
-  }, [authFlow, flowState, selectFlow, successFlow]);
-
   return (
     <Popup onExit={onExitPopup}>
-      <div className={cx("add-source-container")}>{renderPopup}</div>
+      {/* <div className={cx("add-source-container")}>{renderPopup}</div> */}
+      <div className={cx("add-source-container")}>
+        {flowState === "SELECT" && selectFlow}
+        {flowState === "AUTH" && authFlow}
+        {flowState === "SUCCESS" && successFlow}
+      </div>
     </Popup>
   );
 });

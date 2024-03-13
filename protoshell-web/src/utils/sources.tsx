@@ -17,13 +17,17 @@ export const sources: Source[] = [
     lockInfo: {
       NAME: "Amazon collects your name for a variety of purposes, including user identification, personalization, and analytics.",
       AGE: "Amazon collects your age for the purposes of user identification, analytics, and to ensure the safety of its users",
-      SALARY: "Salary is collected in order to tailor user experiences and gain valuable insights through analytics.",
-      ADDRESS: "Address tracking is required for Amazon to ship and deliver user orders. Amazon also uses addresses for analytics and product suggestions.",
-      DEFAULT: ""
+      SALARY:
+        "Salary is collected in order to tailor user experiences and gain valuable insights through analytics.",
+      ADDRESS:
+        "Address tracking is required for Amazon to ship and deliver user orders. Amazon also uses addresses for analytics and product suggestions.",
+      DEFAULT: "",
     },
     lockConfirms: {
-      DEFAULT: "Are you sure? By blocking this data, some Amazon services may no longer be optimized for your user experience, and some services may become unavailable."
-    }
+      DEFAULT:
+        "Are you sure? By blocking this data, some Amazon services may no longer be optimized for your user experience, and some services may become unavailable.",
+    },
+    integrationEndpoint: "https://protoshell.ca:81/cross-auth",
   },
 ];
 

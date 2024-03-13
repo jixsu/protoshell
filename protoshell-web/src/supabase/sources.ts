@@ -1,6 +1,7 @@
 import { handlePostgresResponse, supabaseClient } from ".";
 import { getSourceIdByDBName } from "@/utils/sources";
 import { SourceConfig } from "@/store/slices/sources";
+import { Source } from "@/schema";
 
 export const getUserSourceConfigs = async (userId: string) => {
   const { data } = handlePostgresResponse(
@@ -23,4 +24,28 @@ export const getUserSourceConfigs = async (userId: string) => {
   }
 
   return sourceConfigs;
+};
+
+export const linkUserWithSource = async (
+  userId: string,
+  source: Source,
+  sourceId: number
+) => {
+  const sourceColName = source.dbName;
+  const sourceColId = `${source.dbName}_id`;
+
+  const { data } = handlePostgresResponse(
+    await supabaseClient
+      .from("sources")
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      .update({ [sourceColName]: true }, { [sourceColId]: sourceId })
+      .eq("user_id", userId)
+      .select()
+  );
+
+  const updatedSource = data[0];
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return updatedSource;
 };
